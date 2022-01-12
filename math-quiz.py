@@ -1,7 +1,7 @@
 import random
 
 def display_intro():
-    title = "** A Simple Math Quiz **"
+    title = "Compose your own math quiz"
     print("*" * len(title))
     print(title)
     print("*" * len(title))
@@ -27,6 +27,11 @@ def get_user_input():
         user_input = int(input("Please try again: "))
     else:
         return user_input
+
+
+def get_user_input_amount():
+    user_input = int(input("Amount of questions you want of each category: "))
+    return user_input
 
 
 def get_user_solution(problem):
@@ -75,13 +80,13 @@ def menu_option(index, count):
         return count
 
 
-def display_result(total, correct):
+def display_result(answered, total, correct):
     if total > 0:
         result = correct / total
         percentage = round((result * 100), 2)
     if total == 0:
         percentage = 0
-    print("You answered", total, "questions with", correct, "correct.")
+    print("You answered", answered, "of", total, "questions with", correct, "correct.")
     print("Your score is ", percentage, "%. Thank you.", sep = "")
 
 
@@ -91,15 +96,16 @@ def main():
     display_separator()
 
     option = get_user_input()
-    total = 0
+    answered = 0
+    total = get_user_input_amount()
     correct = 0
     while option != 5:
-        total = total + 1
+        answered += 1
         correct = menu_option(option, correct)
         option = get_user_input()
 
     print("Exit the quiz.")
     display_separator()
-    display_result(total, correct)
+    display_result(answered, total, correct)
 
 main()
